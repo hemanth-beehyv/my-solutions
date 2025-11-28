@@ -11,7 +11,7 @@ on:
           - b
           - c
       deploy_env:
-        type: list
+        type: choice
         options:
           - dev
           - qa
@@ -41,6 +41,5 @@ jobs:
     steps:
       - name: print the service name
         run: echo ${{ matrix.service }}
-      
-      - name: print deployment evironment
-        run: echo "Selected deploy_env: ${{ github.event.inputs.deploy_env }}"
+      - name: print deploy_env
+        run: echo ${{ inputs.deploy_env }}
