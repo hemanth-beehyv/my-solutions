@@ -1,0 +1,46 @@
+name: common deployment pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        type: choice
+        required: true
+        options:
+          - a
+          - b
+          - c
+      deploy_env:
+        type: list
+        options:
+          - dev
+          - qa
+          - demo
+        required: true
+  pull_request:
+    types:
+      - open
+      - closed
+    branches:
+      - develop
+      - release/*
+      - main
+  push:
+    branches:
+      - develop
+      - release/*
+      - main
+
+
+jobs:
+  print_service:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        service: [ "${{ inputs.service }}" ]
+    steps:
+      - name: print the service name
+        run: echo ${{ matrix.service }}
+      
+      - name: print deployment evironment
+        run: echo "Selected deploy_env: ${{ inputs.deploy_env }}"
