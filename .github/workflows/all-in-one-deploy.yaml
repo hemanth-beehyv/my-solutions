@@ -43,4 +43,4 @@ jobs:
         run: echo ${{ matrix.service }}
       
       - name: print deployment evironment
-        run: echo "Selected deploy_env: ${{ inputs.deploy_env }}"
+        run: echo "Selected deploy_env: ${{ github.event.inputs.deploy_env }}"
